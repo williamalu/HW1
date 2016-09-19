@@ -1,0 +1,50 @@
+#! /usr/bin/vvp
+:ivl_version "0.9.7 " "(v0_9_7)";
+:vpi_time_precision + 0;
+:vpi_module "system";
+:vpi_module "v2005_math";
+:vpi_module "va_math";
+S_0x1383730 .scope module, "demorgan_test" "demorgan_test" 2 3;
+ .timescale 0 0;
+v0x13ca410_0 .var "A", 0 0;
+v0x13ca4e0_0 .var "B", 0 0;
+v0x13ca590_0 .net "nA", 0 0, L_0x13ca7d0; 1 drivers
+v0x13ca640_0 .net "nAandnB", 0 0, L_0x13ca9d0; 1 drivers
+v0x13ca720_0 .net "nB", 0 0, L_0x13ca8d0; 1 drivers
+S_0x1383820 .scope module, "dut" "demorgan3" 2 9, 3 3, S_0x1383730;
+ .timescale 0 0;
+L_0x13ca7d0 .functor NOT 1, v0x13ca410_0, C4<0>, C4<0>, C4<0>;
+L_0x13ca8d0 .functor NOT 1, v0x13ca4e0_0, C4<0>, C4<0>, C4<0>;
+L_0x13ca9d0 .functor AND 1, L_0x13ca7d0, L_0x13ca8d0, C4<1>, C4<1>;
+v0x13b8de0_0 .net "A", 0 0, v0x13ca410_0; 1 drivers
+v0x13ca180_0 .net "B", 0 0, v0x13ca4e0_0; 1 drivers
+v0x13ca220_0 .alias "nA", 0 0, v0x13ca590_0;
+v0x13ca2c0_0 .alias "nAandnB", 0 0, v0x13ca640_0;
+v0x13ca370_0 .alias "nB", 0 0, v0x13ca720_0;
+    .scope S_0x1383730;
+T_0 ;
+    %vpi_call 2 14 "$display", "A B | ~A ~B | ~A~B ";
+    %set/v v0x13ca410_0, 0, 1;
+    %set/v v0x13ca4e0_0, 0, 1;
+    %delay 1, 0;
+    %vpi_call 2 16 "$display", "%b %b |  %b  %b |  %b ", v0x13ca410_0, v0x13ca4e0_0, v0x13ca590_0, v0x13ca720_0, v0x13ca640_0;
+    %set/v v0x13ca410_0, 0, 1;
+    %set/v v0x13ca4e0_0, 1, 1;
+    %delay 1, 0;
+    %vpi_call 2 18 "$display", "%b %b |  %b  %b |  %b ", v0x13ca410_0, v0x13ca4e0_0, v0x13ca590_0, v0x13ca720_0, v0x13ca640_0;
+    %set/v v0x13ca410_0, 1, 1;
+    %set/v v0x13ca4e0_0, 0, 1;
+    %delay 1, 0;
+    %vpi_call 2 20 "$display", "%b %b |  %b  %b |  %b ", v0x13ca410_0, v0x13ca4e0_0, v0x13ca590_0, v0x13ca720_0, v0x13ca640_0;
+    %set/v v0x13ca410_0, 1, 1;
+    %set/v v0x13ca4e0_0, 1, 1;
+    %delay 1, 0;
+    %vpi_call 2 22 "$display", "%b %b |  %b  %b |  %b ", v0x13ca410_0, v0x13ca4e0_0, v0x13ca590_0, v0x13ca720_0, v0x13ca640_0;
+    %end;
+    .thread T_0;
+# The file index is used to find the file name in the following table.
+:file_names 4;
+    "N/A";
+    "<interactive>";
+    "hw1_nAandnB.t.v";
+    "./hw1_nAandnB.v";
